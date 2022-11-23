@@ -1,0 +1,7 @@
+<odoo>
+    <menuitem id="sale_advanced_report"
+              parent="sale.menu_sale_report"
+              name="Sale Product PDF"
+              action="sale_order_salesperson"
+              sequence="5"/>
+</odoo>

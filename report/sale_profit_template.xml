@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="sale_report_view">
+        <t t-call="web.html_container">
+            <t t-call="web.external_layout">
+                <t class="page">
+                    <div class="oe_structure"/>
+                    <center>
+                        <b>
+                            <h3>Sales Order Report</h3>
+
+                        </b>
+                    </center>
+                    <t t-if="start_date and end_date">
+                        <center>
+                            <span t-esc="start_date"/>
+                            To
+                            <span t-esc="end_date"/>
+                        </center>
+                    </t>
+                    <t t-if="type=='user'">
+                        <t t-foreach="user_id" t-as="user">
+                            <center>
+                                <b>
+                                    <span t-esc="user['name']"/>
+                                </b>
+                            </center>
+                            <t t-set="t_subtotal" t-value="0"/>
+                            <br/>
+                            <table class="table table-condensed">
+                                <thead>
+                                    <tr>
+                                        <th>Order</th>
+                                        <th>Date</th>
+                                        <th>Product</th>
+                                        <th>Quantity</th>
+                                        <th>Sale Price</th>
+                                        <th>Subtotal</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr t-foreach="form" t-as="order">
+                                        <t t-if="order['user_id'] == user['id']">
+                                            <td>
+                                                <span t-esc="order['sequence']"/>
+                                            </td>
+                                            <td>
+                                                <span t-esc="order['date']" t-options='{"widget": "date"}'/>
+                                            </td>
+                                            <td>
+                                                <span t-esc="order['product']"/>
+                                            </td>
+                                            <td>
+                                                <span t-esc="order['quantity']"/>
+                                            </td>
+                                            <td>
+                                                <span t-esc="order['price']"/>
+
+                                            </td>
+                                            <td>
+                                                <span t-esc="order['subtotal']"/>
+                                                <t t-set="t_subtotal" t-value="t_subtotal + order['subtotal']"></t>
+
+                                            </td>
+                                        </t>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <span>Total Price:</span>
+                                        </td>
+                                        <td></td><td></td><td></td><td></td>
+                                        <td>
+                                            <span>
+                                                <t t-esc="t_subtotal" style="float:right;width:50%;text-align:right;"/>
+                                            </span>
+
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </t>
+                    </t>
+                    <t t-if="no_value == True">
+                        <table class="table table-condensed">
+                            <t t-set="t_subtotal" t-value="0"/>
+                            <thead>
+                                <tr>
+                                    <th>Order</th>
+                                    <th>Date</th>
+                                    <th>Salesperson</th>
+                                    <th>Product</th>
+                                    <th>Quantity</th>
+                                    <th>Sale Price</th>
+                                    <th>Subtotal</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr t-foreach="form" t-as="order">
+                                    <td>
+                                        <span t-esc="order['sequence']"/>
+                                    </td>
+                                    <td>
+                                        <span t-esc="order['date']" t-options='{"widget": "date"}'/>
+                                    </td>
+                                    <td>
+                                        <span t-esc="order['user']"/>
+                                    </td>
+                                    <td>
+                                        <span t-esc="order['product']"/>
+                                    </td>
+                                    <td>
+                                        <span t-esc="order['quantity']"/>
+                                    </td>
+                                    <td>
+                                        <span t-esc="order['price']"/>
+
+                                    </td>
+                                    <td>
+                                        <span t-esc="order['subtotal']"/>
+                                        <t t-set="t_subtotal" t-value="t_subtotal + order['subtotal']"></t>
+
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <span>Total Price:</span>
+                                        <t t-esc="t_subtotal"/>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </t>
+                </t>
+            </t>
+        </t>
+    </template>
+</odoo>

@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <report
+                id="action_sale_report"
+                string="Sales"
+                model="sale.order.salesperson"
+                report_type="qweb-pdf"
+                file="sale_order_salesperson.sale_report_view"
+                name="sale_order_salesperson.sale_report_view"
+        />
+    </data>
+</odoo>
